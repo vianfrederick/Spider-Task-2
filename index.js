@@ -11,6 +11,11 @@ const totalCorrect = document.querySelector(".Total-Correct");
 const totalWrong = document.querySelector(".Total-Wrong");
 const totalScore = document.querySelector(".Total-Score");
 const percentage = document.querySelector(".Percentage");
+const box1 = document.querySelector(".box1");
+const box2 = document.querySelector(".box2");
+const box3 = document.querySelector(".box3");
+const box4 = document.querySelector(".box4");
+
 let wrong = 0;
 let attempt = 0;
 let correct = 0;
@@ -151,17 +156,23 @@ const quiz = [{
 
 function showInstruction(){
   document.querySelector(".intro-box").classList.add("hide");
+  box1.classList.add("hide");
+  box2.classList.remove("hide");
   homeBox.classList.remove("hide");
 }
 
 function startQuiz(){
   document.querySelector(".intro-box").classList.add("hide");
+  box1.classList.add("hide");
   quizBox.classList.remove("hide");
+  box3.classList.remove("hide");
   getQuestion();
 }
 
 function moveToQuestions() {
+  box2.classList.add("hide");
   homeBox.classList.add("hide");
+  box3.classList.remove("hide");
   quizBox.classList.remove("hide");
   getQuestion();
 }
@@ -291,6 +302,8 @@ function checkCorrectOrWrong(element) {
 
 
 function showScore(){
+  box4.classList.remove("hide");
+  box3.classList.add("hide");
   quizBox.classList.add("hide");
   resultBox.classList.remove("hide");
   let percentageValue = (correct/10) *100;
@@ -302,6 +315,8 @@ function showScore(){
 }
 
 function goBackToIntroPage(){
+  box4.classList.add("hide");
+  box1.classList.toggle("hide");
   resultBox.classList.add("hide");
   document.querySelector(".intro-box").classList.toggle("hide");
 }

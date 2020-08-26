@@ -8,15 +8,15 @@
     <title>Quiz</title>
   </head>
   <body>
-    <div class="box">
+    <div class="box box1">
       <div class="intro-box customBox">
-            <h1 style="text-align : center; margin-bottom : 50px; font-size :50px;">Welcome to COVID-19 Quiz</h1>
-            <h2 style="text-align : center; color : red">Let's check your knowledge about COVID-19</h2>
+            <h1 style="text-align : center; margin-bottom : 50px; font-size :70px; color: white;">Welcome to COVID-19 Quiz</h1>
+            <h2 style="text-align : center; color : red; font-size : 40px">Let's check your knowledge about COVID-19</h2>
             <button style = "margin-top : 100px;" class = "btn" onclick="showInstruction()"type="button" name="button">Instructions</button>
-            <button style="margin-left: 280px; margin-top : 100px;" class = "btn"onclick="startQuiz()" type="button" name="button">Start Quiz</button>
+            <button style="margin-left: 330px; margin-top : 100px;" class = "btn"onclick="startQuiz()" type="button" name="button">Start Quiz</button>
       </div>
     </div>
-
+<div class="box hide box2">
     <div class="home-box customBox hide">
       <h1>Instructions</h1>
       <p>1) Total number of questions is: <span class="total-question">15</span></p>
@@ -26,12 +26,13 @@
       <p>5) If you want to end the quiz, go ahead and click the submit button</p>
       <button onclick="moveToQuestions()" type="button" name="button" class = "btn">Start Quiz</button>
     </div>
-
+</div>
+<div style="width:814px; height : 890px; margin-bottom : 50px; margin-top : 50px;"class="box hide box3">
     <div class="quiz-box customBox hide">
           <div class="question-number">
 
           </div>
-          <div class="question-text">
+          <div style="font-size :20px; color : white; background-color: brown; " class="question-text">
 
           </div>
           <div class="option-text">
@@ -51,7 +52,7 @@
           </div>
           <div style="border-top: 1px solid black; margin-top: 66px;" class="next-button">
             <button  onclick="previousQuestion()"class="btn" type="button" name="button">Previous</button>
-            <button style="margin-left: 349px;" onclick="nextQuestion()"class="btn" type="button" name="button">Next</button>
+            <button style="margin-left: 403px;" onclick="nextQuestion()"class="btn" type="button" name="button">Next</button>
           </div>
           <div class="answers-indicator">
                <div class="emoji"></div>
@@ -67,7 +68,8 @@
           </div>
           <button onclick="showScore()" class="submit" type="button" name="button">Submit</button>
     </div>
-
+</div>
+<div style="width:814px; height : 700px; margin-bottom : 50px; margin-top : 50px;"  class="box hide box4">
     <div class="result-box customBox hide">
             <h1>Result</h1>
             <table>
@@ -99,8 +101,9 @@
 
             </table>
 
-            <button onclick="goBackToIntroPage()" style = "margin-left: 35%" class="btn" type="button" name="button">Go to Home</button>
+            <button onclick="goBackToIntroPage()" style = "margin-left: 27%; font-size : 29px;" class="btn" type="button" name="button">Go to Home</button>
     </div>
+  </div>
     <script src="index.js" charset="utf-8"></script>
     <source type="module/javascript" src="./quizQuestion.js" charset="utf-8"></source>
   </body>
