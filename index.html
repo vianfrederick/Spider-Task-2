@@ -1,0 +1,107 @@
+ <!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <title>Quiz</title>
+  </head>
+  <body>
+    <div class="box">
+      <div class="intro-box customBox">
+            <h1 style="text-align : center; margin-bottom : 50px; font-size :50px;">Welcome to COVID-19 Quiz</h1>
+            <h2 style="text-align : center; color : red">Let's check your knowledge about COVID-19</h2>
+            <button style = "margin-top : 100px;" class = "btn" onclick="showInstruction()"type="button" name="button">Instructions</button>
+            <button style="margin-left: 280px; margin-top : 100px;" class = "btn"onclick="startQuiz()" type="button" name="button">Start Quiz</button>
+      </div>
+    </div>
+
+    <div class="home-box customBox hide">
+      <h1>Instructions</h1>
+      <p>1) Total number of questions is: <span class="total-question">15</span></p>
+      <p>2) You will be given only one attempt for a question.</p>
+      <p>3) Upon Answering a question, the correct option will be marked <span style="background-color: Green;">Green</span> and your marked option if wrong will be marked <span style="background-color: Red;">Red</span>.</p>
+      <p>4) You will also notified a emoji depending upon your responsed to a question</p>
+      <p>5) If you want to end the quiz, go ahead and click the submit button</p>
+      <button onclick="moveToQuestions()" type="button" name="button" class = "btn">Start Quiz</button>
+    </div>
+
+    <div class="quiz-box customBox hide">
+          <div class="question-number">
+
+          </div>
+          <div class="question-text">
+
+          </div>
+          <div class="option-text">
+                    <div id="0"class="option">
+                      January
+                    </div>
+                    <div id="1"class="option">
+                      July
+                    </div>
+                    <div id="2" class="option">
+                      December
+                    </div>
+                    <div id="3" class="option">
+                      August
+                    </div>
+
+          </div>
+          <div style="border-top: 1px solid black; margin-top: 66px;" class="next-button">
+            <button  onclick="previousQuestion()"class="btn" type="button" name="button">Previous</button>
+            <button style="margin-left: 349px;" onclick="nextQuestion()"class="btn" type="button" name="button">Next</button>
+          </div>
+          <div class="answers-indicator">
+               <div class="emoji"></div>
+               <div class="emoji"></div>
+               <div class="emoji"></div>
+               <div class="emoji"></div>
+               <div class="emoji"></div>
+               <div class="emoji"></div>
+               <div class="emoji"></div>
+               <div class="emoji"></div>
+               <div class="emoji"></div>
+               <div class="emoji"></div>
+          </div>
+          <button onclick="showScore()" class="submit" type="button" name="button">Submit</button>
+    </div>
+
+    <div class="result-box customBox hide">
+            <h1>Result</h1>
+            <table>
+              <tr>
+                <td>Total Quetions</td>
+                <td><span class = "Total-Question">10</span></td>
+              </tr>
+
+              <tr>
+                <td>Total Attempt</td>
+                <td><span class = "Total-Attempt"></span></td>
+              </tr>
+              <tr>
+                <td>Total Correct</td>
+                <td><span class = "Total-Correct"></span></td>
+              </tr>
+              <tr>
+                <td>Total Wrong</td>
+                <td><span class = "Total-Wrong"></span></td>
+              </tr>
+              <tr>
+                <td>Percentage</td>
+                <td><span class = "Percentage"></span></td>
+              </tr>
+              <tr>
+                <td>Total Score</td>
+                <td><span class = "Total-Score"></span></td>
+              </tr>
+
+            </table>
+
+            <button onclick="goBackToIntroPage()" style = "margin-left: 35%" class="btn" type="button" name="button">Go to Home</button>
+    </div>
+    <script src="index.js" charset="utf-8"></script>
+    <source type="module/javascript" src="./quizQuestion.js" charset="utf-8"></source>
+  </body>
+</html>
