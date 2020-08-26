@@ -154,6 +154,19 @@ const quiz = [{
   }
 ];
 
+var randomizedQuiz = [];
+var availableQuestion = [];
+availableQuestion = quiz;
+let counter = 0;
+let k;
+while(counter<10){
+  k = Math.floor(Math.random() * availableQuestion.length);
+  randomizedQuiz.push(availableQuestion[k]);
+  availableQuestion.splice(k,1);
+  counter = counter + 1;
+}
+console.log(randomizedQuiz);
+
 function showInstruction(){
   document.querySelector(".intro-box").classList.add("hide");
   box1.classList.add("hide");
@@ -187,7 +200,7 @@ function getQuestion() {
        // console.log(typeof(quiz[i].correctId));
 
     questionNumber.innerHTML = "Question " + String(i + 1);
-    questionText.innerHTML = quiz[i].question;
+    questionText.innerHTML = randomizedQuiz[i].question;
 
 
     // for (var j = 0; j < 4; j++) {
@@ -195,30 +208,30 @@ function getQuestion() {
     // }
     for (var j = 0; j < 4; j++) {
 
-      options[j].innerHTML = quiz[i].options[j];
+      options[j].innerHTML = randomizedQuiz[i].options[j];
       //  option = document.createElement("div");
       // option.innerHTML = quiz[i].options[j];
       // option.id = j;
       // option.className = "option";
       // optionBox.appendChild(option);
 
-      if (options[j].innerHTML == quiz[i].correctAnswer) {
+      if (options[j].innerHTML == randomizedQuiz[i].correctAnswer) {
         correctOption = options[j];
       }
       options[j].setAttribute("onclick", "checkCorrectOrWrong(this)");
     }
-    if(quiz[i].answered == true){
+    if(randomizedQuiz[i].answered == true){
         for (var j = 0; j < 4; j++) {
           options[j].style.backgroundColor = "#cccccc";
         }
-      if(quiz[i].chosenId == quiz[i].correctId){
-        console.log(options[quiz[i].correctId].innerHTML);
-           options[quiz[i].correctId].style.backgroundColor = "Green";
+      if(randomizedQuiz[i].chosenId == randomizedQuiz[i].correctId){
+        console.log(options[randomizedQuiz[i].correctId].innerHTML);
+           options[randomizedQuiz[i].correctId].style.backgroundColor = "Green";
       }
       else{
-        console.log(options[quiz[i].chosenId].innerHTML);
-        options[quiz[i].correctId].style.backgroundColor = "Green";
-        options[parseInt(quiz[i].chosenId)].style.backgroundColor = "Red";
+        console.log(options[randomizedQuiz[i].chosenId].innerHTML);
+        options[randomizedQuiz[i].correctId].style.backgroundColor = "Green";
+        options[parseInt(randomizedQuiz[i].chosenId)].style.backgroundColor = "Red";
 
       }
     }
@@ -236,7 +249,7 @@ function nextQuestion() {
    //
    //   }
     ++i;
-    if(quiz[i].answered == false){
+    if(randomizedQuiz[i].answered == false){
       for(var j = 0;j <4 ; j++){
         options[j].style.backgroundColor = "#cccccc";
       }
@@ -265,7 +278,7 @@ function previousQuestion() {
 //
 //   }
       --i;
-      if(quiz[i].answered == false){
+      if(randomizedQuiz[i].answered == false){
         for(var j = 0;j <4 ; j++){
           options[j].style.backgroundColor = "#cccccc";
         }
@@ -280,22 +293,22 @@ function checkCorrectOrWrong(element) {
 
 
 
-  if(quiz[i].answered != true){
+  if(randomizedQuiz[i].answered != true){
      attempt = attempt + 1;
-  quiz[i].answered = true;
-  let correctAnswer = quiz[i].correctAnswer;
+  randomizedQuiz[i].answered = true;
+  let correctAnswer = randomizedQuiz[i].correctAnswer;
   if (element.innerHTML == correctAnswer) {
     correct = correct + 1;
     score = score + 1;
     emoji[i].innerHTML = "&#128515;"
     element.style.backgroundColor = "Green";
-    quiz[i].chosenId = element.id;
+    randomizedQuiz[i].chosenId = element.id;
   } else {
     wrong = wrong + 1;
     emoji[i].innerHTML = "&#128543;"
     element.style.backgroundColor = "Red";
     correctOption.style.backgroundColor = "Green";
-     quiz[i].chosenId = element.id;
+     randomizedQuiz[i].chosenId = element.id;
   }
 }
 }
