@@ -15,7 +15,14 @@ const box1 = document.querySelector(".box1");
 const box2 = document.querySelector(".box2");
 const box3 = document.querySelector(".box3");
 const box4 = document.querySelector(".box4");
-
+const navBtn = document.querySelectorAll(".nav-btn");
+const navBar = document.querySelector(".navbar")
+const timeBar = document.querySelector(".time-bar");
+var time = {
+  seconds : 0,
+  minutes : 10
+}
+let interval;
 let wrong = 0;
 let attempt = 0;
 let correct = 0;
@@ -23,6 +30,7 @@ let i = 0;
 var option1 = document.querySelectorAll(".option");
 let score = 0;
 var correctOption;
+let questionTimeInterval;
 const quiz = [{
     question: "Which of the following statement is/are correct about Favipiravir?",
     options: ["Favipiravir is an antiviral COVID-19 drug.",
@@ -33,7 +41,11 @@ const quiz = [{
     correctAnswer: "All the above are correct",
        answered : false,
        chosenId : 0,
-       correctId : 3
+       correctId : 3,
+       time : {
+         seconds : 0,
+         minutes : 0
+       }
   },
   {
     question: "How many countries, areas or territories are suffering from novel coronavirus outbreak in the World?",
@@ -46,7 +58,11 @@ const quiz = [{
     correctAnswer: "More than 200",
        answered : false,
        chosenId : 0,
-       correctId : 3
+       correctId : 3,
+       time : {
+         seconds : 0,
+         minutes : 0
+       }
   },
   {
     question: " Name a clinical trial in which blood is transfused from recovered COVID-19 patients to a coronavirus patient who is in critical condition?",
@@ -59,7 +75,11 @@ const quiz = [{
     correctAnswer: "Plasma Therapy",
        answered : false,
        chosenId : 0,
-       correctId : 0
+       correctId : 0,
+       time : {
+         seconds : 0,
+         minutes : 0
+       }
   },
   {
     question: "In a study, which cells are found in COVID-19 patients 'bode well' for long term immunity?",
@@ -72,7 +92,11 @@ const quiz = [{
     correctAnswer: "T-Cell",
        answered : false,
        chosenId : 0,
-       correctId : 2
+       correctId : 2,
+       time : {
+         seconds : 0,
+         minutes : 0
+       }
   },
   {
     question: "Name the vaccine that is jointly developed by the German company BioNTech and US pharma giant Pfizer for COVID-19?",
@@ -85,7 +109,11 @@ const quiz = [{
     correctAnswer: "BNT162",
        answered : false,
        chosenId : 0,
-       correctId : 0
+       correctId : 0,
+       time : {
+         seconds : 0,
+         minutes : 0
+       }
   },
   {
     question: " Name a clinical trial in which blood is transfused from recovered COVID-19 patients to a coronavirus patient who is in critical condition?",
@@ -98,7 +126,11 @@ const quiz = [{
     correctAnswer: "Plasma Therapy",
        answered : false,
        chosenId : 0,
-       correctId : 0
+       correctId : 0,
+       time : {
+         seconds : 0,
+         minutes : 0
+       }
   },
   {
     question: "How does Coronavirus transmit?",
@@ -111,7 +143,11 @@ const quiz = [{
     correctAnswer: "All the above are correct.",
        answered : false,
        chosenId : 0,
-       correctId : 3
+       correctId : 3,
+       time : {
+         seconds : 0,
+         minutes : 0
+       }
   },
   {
     question: "What happens to a person suffering from COVID-19?",
@@ -124,7 +160,11 @@ const quiz = [{
     correctAnswer: "All the above are correct",
        answered : false,
        chosenId : 0,
-       correctId : 3
+       correctId : 3,
+       time : {
+         seconds : 0,
+         minutes : 0
+       }
   },
   {
     question: "In which age group the COVID-19 spreads?",
@@ -137,7 +177,11 @@ const quiz = [{
     correctAnswer: " All the above are correct",
        answered : false,
        chosenId : 0,
-       correctId : 3
+       correctId : 3,
+       time : {
+         seconds : 0,
+         minutes : 0
+       }
   },
   {
     question: "What is Coronavirus?",
@@ -150,9 +194,48 @@ const quiz = [{
     correctAnswer: "Both A and B are correct",
        answered : false,
        chosenId : 0,
-       correctId : 2
+       correctId : 2,
+       time : {
+         seconds : 0,
+         minutes : 0
+       }
   }
 ];
+
+
+
+for(var j=0;j<10;j++){
+  navBtn[j].setAttribute("onclick","getApproQuestion(this)");
+}
+
+function getApproQuestion(ele){
+   i = parseInt(ele.value);
+   clearInterval(questionTimeInterval);
+  getQuestion();
+}
+
+function stopWatch() {
+
+  time.seconds--;
+  if(time.seconds ==(-1)){
+    time.seconds=59;
+    time.minutes--;
+  }
+  timeBar.innerHTML = time.minutes +':'+ time.seconds;
+
+if(time.minutes == 0 && time.seconds == 0){
+  clearInterval(questionTimeInterval);
+  clearInterval(interval);
+  time.minutes = 1;
+  time.seconds = 0;
+  showScore();
+}
+  // localStorage.setItem("SECONDSEASY", seconds);
+  // localStorage.setItem("MILLISECONDSEASY", milliSeconds);
+  // nettime = (seconds*1000) + milliSeconds;
+  // localStorage.setItem("NETTIMEEASY", nettime);
+}
+
 
 var randomizedQuiz = [];
 var availableQuestion = [];
@@ -165,7 +248,7 @@ while(counter<10){
   availableQuestion.splice(k,1);
   counter = counter + 1;
 }
-console.log(randomizedQuiz);
+
 
 function showInstruction(){
   document.querySelector(".intro-box").classList.add("hide");
@@ -175,24 +258,43 @@ function showInstruction(){
 }
 
 function startQuiz(){
+  interval = setInterval(stopWatch,1000);
   document.querySelector(".intro-box").classList.add("hide");
   box1.classList.add("hide");
   quizBox.classList.remove("hide");
   box3.classList.remove("hide");
+  timeBar.classList.remove("hide");
+  navBar.classList.remove("hide");
   getQuestion();
 }
 
 function moveToQuestions() {
+  interval = setInterval(stopWatch,1000);
   box2.classList.add("hide");
   homeBox.classList.add("hide");
   box3.classList.remove("hide");
   quizBox.classList.remove("hide");
+  timeBar.classList.remove("hide");
+  navBar.classList.remove("hide");
   getQuestion();
 }
 
 function getQuestion() {
 
   if (i >= 0 && i <= 9) {
+
+    if(randomizedQuiz[i].answered == false){
+      for(var j = 0;j <4 ; j++){
+        options[j].style.backgroundColor = "#cccccc";
+      }
+      questionTimeInterval = setInterval(function(){
+        randomizedQuiz[i].time.seconds ++;
+        if(randomizedQuiz[i].time.seconds/60 == 0){
+          randomizedQuiz[i].time.seconds = 0;
+          randomizedQuiz[i].time.minutes++;
+        }
+      },1000);
+    }
 
        // console.log(quiz[i].chosenId);
        // console.log(quiz[i].correctId);
@@ -242,6 +344,9 @@ function nextQuestion() {
 
 // option1 = document.querySelectorAll(".option");
   if (i >= 0 && i <= 9) {
+
+    clearInterval(questionTimeInterval);
+
         if(i!=9){
    // // for (var j = 0; j < 4; j++) {
    // //   option1[j].remove();
@@ -249,11 +354,7 @@ function nextQuestion() {
    //
    //   }
     ++i;
-    if(randomizedQuiz[i].answered == false){
-      for(var j = 0;j <4 ; j++){
-        options[j].style.backgroundColor = "#cccccc";
-      }
-    }
+
     // if (i == 10) {
     //   quizBox.classList.add("hide");
     //   resultBox.classList.remove("hide");
@@ -270,6 +371,9 @@ function previousQuestion() {
 // option1 = document.querySelectorAll(".option");
   if (i >= 0 && i <= 9) {
 
+    clearInterval(questionTimeInterval);
+
+
     if (i != 0) {
 
 
@@ -278,11 +382,7 @@ function previousQuestion() {
 //
 //   }
       --i;
-      if(randomizedQuiz[i].answered == false){
-        for(var j = 0;j <4 ; j++){
-          options[j].style.backgroundColor = "#cccccc";
-        }
-      }
+
 
       getQuestion();
     }
@@ -291,7 +391,7 @@ function previousQuestion() {
 
 function checkCorrectOrWrong(element) {
 
-
+navBtn[i].style.border = "3px solid darkgreen";
 
   if(randomizedQuiz[i].answered != true){
      attempt = attempt + 1;
@@ -315,6 +415,11 @@ function checkCorrectOrWrong(element) {
 
 
 function showScore(){
+
+  clearInterval(questionTimeInterval);
+    clearInterval(interval);
+    timeBar.classList.toggle("hide");
+    navBar.classList.toggle("hide");
   box4.classList.remove("hide");
   box3.classList.add("hide");
   quizBox.classList.add("hide");
@@ -328,8 +433,30 @@ function showScore(){
 }
 
 function goBackToIntroPage(){
+  time.seconds = 0;
+  time.minutes = 1;
+  timeBar.innerHTML = "1:00"
+  for (var j =0; j< 10 ; j++){
+    randomizedQuiz[j].time.seconds = 0;
+    randomizedQuiz[j].time.minutes = 0;
+    randomizedQuiz[j].answered = false;
+    randomizedQuiz[j].chosenId = 0;
+    emoji[j].innerHTML = '';
+    navBtn[j].style.border = "3px solid white";
+  }
+   wrong = 0;
+   attempt = 0;
+   correct = 0;
+   i = 0;
+   score = 0;
+
+
   box4.classList.add("hide");
   box1.classList.toggle("hide");
   resultBox.classList.add("hide");
   document.querySelector(".intro-box").classList.toggle("hide");
+}
+
+function showCorrectQuestion(){
+
 }

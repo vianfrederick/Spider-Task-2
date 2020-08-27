@@ -209,3 +209,44 @@ margin-left: 70px;
   font-size: 32px;
   background-color: white;
 }
+
+.nav-all:hover .nav-btn{
+  visibility: visible;
+}
+
+
+.nav-btn{
+  visibility: hidden;
+margin: ;
+margin-right: 25px;
+width: 125px;
+height: 41px;
+font-size: 13px;
+background-color: dimgrey;
+border: 3px solid white;
+}
+
+.nav-all{
+  font-size: 35px;
+   color: white;
+   margin-left: 10px;
+
+}
+
+.time-bar{
+  color: white;
+margin-left: 6%;
+margin-bottom: 62%;
+margin-right: 104px;
+font-size: 25px;
+border: 1px solid violet;
+border-radius: 15px;
+paddding: 301px;
+padding-left: 1px;
+padding: 15px;
+}
+
+.btn-list{
+  margin: 0;
+
+}

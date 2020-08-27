@@ -8,8 +8,12 @@
     <title>Quiz</title>
   </head>
   <body>
+
+    <h2  class="time-bar hide">1:00</h2>
+
     <div class="box box1">
       <div class="intro-box customBox">
+
             <h1 style="text-align : center; margin-bottom : 50px; font-size :70px; color: white;">Welcome to COVID-19 Quiz</h1>
             <h2 style="text-align : center; color : red; font-size : 40px">Let's check your knowledge about COVID-19</h2>
             <button style = "margin-top : 100px;" class = "btn" onclick="showInstruction()"type="button" name="button">Instructions</button>
@@ -27,7 +31,7 @@
       <button onclick="moveToQuestions()" type="button" name="button" class = "btn">Start Quiz</button>
     </div>
 </div>
-<div style="width:814px; height : 890px; margin-bottom : 50px; margin-top : 50px;"class="box hide box3">
+<div style="width:814px; height : 890px; margin-bottom : 50px; margin-top : 50px; margin-right : 157px;"class="box hide box3">
     <div class="quiz-box customBox hide">
           <div class="question-number">
 
@@ -46,13 +50,13 @@
 
                     </div>
                     <div id="3" class="option">
-                  
+
                     </div>
 
           </div>
           <div style="border-top: 1px solid black; margin-top: 66px;" class="next-button">
             <button  onclick="previousQuestion()"class="btn" type="button" name="button">Previous</button>
-            <button style="margin-left: 403px;" onclick="nextQuestion()"class="btn" type="button" name="button">Next</button>
+            <button style="margin-left: 373px;" onclick="nextQuestion()"class="btn" type="button" name="button">Next</button>
           </div>
           <div class="answers-indicator">
                <div class="emoji"></div>
@@ -104,6 +108,25 @@
             <button onclick="goBackToIntroPage()" style = "margin-left: 27%; font-size : 29px;" class="btn" type="button" name="button">Go to Home</button>
     </div>
   </div>
+
+  <div style="margin-bottom : 307px;" class="navbar hide">
+
+    <li style="list-style-type : none; text-align : center;" class="nav-all"><span style="border : 1px solid white; text-decoration : underline; color:honeydew;">All Questions</span>
+      <ul>
+        <li class="btn-list"style="list-style-type : none;"> <button onclick="showCorrectQuestion()" value="0" class="nav-btn" type="button" name="navButton">Question 1</button> </li>
+        <li class="btn-list" style="list-style-type : none;"> <button onclick="showCorrectQuestion()" value="1" class="nav-btn" type="button" name="navButton">Question 2</button> </li>
+        <li class="btn-list" style="list-style-type : none;"> <button onclick="showCorrectQuestion()" value="2" class="nav-btn" type="button" name="navButton">Question 3</button> </li>
+        <li class="btn-list" style="list-style-type : none;"> <button onclick="showCorrectQuestion()" value="3" class="nav-btn" type="button" name="navButton">Question 4</button> </li>
+        <li class="btn-list" style="list-style-type : none;"> <button onclick="showCorrectQuestion()" value="4" class="nav-btn" type="button" name="navButton">Question 5</button> </li>
+        <li class="btn-list"style="list-style-type : none;"> <button onclick="showCorrectQuestion()" value="5" class="nav-btn" type="button" name="navButton">Question 6</button> </li>
+        <li class="btn-list" style="list-style-type : none;"> <button onclick="showCorrectQuestion()" value="6" class="nav-btn" type="button" name="navButton">Question 7</button> </li>
+        <li class="btn-list" style="list-style-type : none;"> <button onclick="showCorrectQuestion()" value="7" class="nav-btn" type="button" name="navButton">Question 8</button> </li>
+        <li class="btn-list"  style="list-style-type : none;"> <button onclick="showCorrectQuestion()" value="8" class="nav-btn" type="button" name="navButton">Question 9</button> </li>
+        <li class="btn-list" style="list-style-type : none;"> <button onclick="showCorrectQuestion()" value="9" class="nav-btn" type="button" name="navButton">Question 10</button> </li>
+      </ul>  </li>
+
+  </div>
+
     <script src="index.js" charset="utf-8"></script>
     <source type="module/javascript" src="./quizQuestion.js" charset="utf-8"></source>
   </body>
