@@ -315,6 +315,15 @@ function showScore(){
 }
 
 function goBackToIntroPage(){
+   wrong = 0;
+   attempt = 0;
+   correct = 0;
+   i = 0;
+   score = 0;
+   for(var j=0;j<10;j++){
+     quiz[j].chosenId = 0;
+     quiz[j].answered = false;
+   }
   box4.classList.add("hide");
   box1.classList.toggle("hide");
   resultBox.classList.add("hide");
