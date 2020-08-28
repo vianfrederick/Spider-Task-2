@@ -181,6 +181,12 @@ function getQuestion() {
 
   if (i >= 0 && i <= 9) {
 
+    if(quiz[i].answered == false){
+      for(var j = 0;j <4 ; j++){
+        options[j].style.backgroundColor = "#cccccc";
+      }
+    }
+
        // console.log(quiz[i].chosenId);
        // console.log(quiz[i].correctId);
        // console.log(typeof(quiz[i].chosenId));
@@ -236,11 +242,7 @@ function nextQuestion() {
    //
    //   }
     ++i;
-    if(quiz[i].answered == false){
-      for(var j = 0;j <4 ; j++){
-        options[j].style.backgroundColor = "#cccccc";
-      }
-    }
+    
     // if (i == 10) {
     //   quizBox.classList.add("hide");
     //   resultBox.classList.remove("hide");
@@ -265,11 +267,7 @@ function previousQuestion() {
 //
 //   }
       --i;
-      if(quiz[i].answered == false){
-        for(var j = 0;j <4 ; j++){
-          options[j].style.backgroundColor = "#cccccc";
-        }
-      }
+
 
       getQuestion();
     }
@@ -323,6 +321,8 @@ function goBackToIntroPage(){
    for(var j=0;j<10;j++){
      quiz[j].chosenId = 0;
      quiz[j].answered = false;
+     emoji[j].innerHTML = '';
+
    }
   box4.classList.add("hide");
   box1.classList.toggle("hide");
