@@ -18,9 +18,40 @@ const box4 = document.querySelector(".box4");
 const navBtn = document.querySelectorAll(".nav-btn");
 const navBar = document.querySelector(".navbar")
 const timeBar = document.querySelector(".time-bar");
+const timeTable = document.querySelector(".time-table");
+const resultTable = document.querySelector(".result-table");
+const resultBar = document.querySelector(".result-bar");
+const candidateName = document.querySelector(".input");
+const name = document.querySelector(".name");
+const submittedDate = document.querySelector(".submittedDate");
+const submittedTime = document.querySelector(".submittedTime");
+const highScoreTable = document.querySelector(".highScore-table");
+const highScoreData = document.querySelector(".high-score");
+const highScoreDate = document.querySelector(".high-score-date");
+const highScoreTime = document.querySelector(".high-score-time");
+
+const qn1 = document.querySelector(".qn1");
+const qn2 = document.querySelector(".qn2");
+const qn3 = document.querySelector(".qn3");
+const qn4 = document.querySelector(".qn4");
+const qn5 = document.querySelector(".qn5");
+const qn6 = document.querySelector(".qn6");
+const qn7 = document.querySelector(".qn7");
+const qn8 = document.querySelector(".qn8");
+const qn9 = document.querySelector(".qn9");
+const qn10 = document.querySelector(".qn10");
+const totalTime = document.querySelector(".totTime");
+
+var resultTime = {
+  seconds : 0,
+  minutes : 0,
+  correctSecondsFormat : "0"
+}
+
 var time = {
   seconds : 0,
-  minutes : 10
+  minutes : 10,
+  correctSecondsFormat : "0"
 }
 let interval;
 let wrong = 0;
@@ -215,13 +246,36 @@ function getApproQuestion(ele){
 }
 
 function stopWatch() {
+  resultTime.seconds++;
 
   time.seconds--;
   if(time.seconds ==(-1)){
     time.seconds=59;
     time.minutes--;
+
   }
-  timeBar.innerHTML = time.minutes +':'+ time.seconds;
+
+ if(resultTime.seconds == 60){
+   resultTime.seconds = 0;
+   resultTime.minutes++;
+ }
+
+ if(resultTime.seconds <10){
+   resultTime.correctSecondsFormat = "0" + resultTime.seconds;
+ }
+
+ else{
+   resultTime.correctSecondsFormat = resultTime.seconds;
+ }
+
+  if(time.seconds < 10){
+    time.correctSecondsFormat = "0" + time.seconds;
+  }
+  else{
+    time.correctSecondsFormat = time.seconds;
+  }
+
+  timeBar.innerHTML = time.minutes +':'+ time.correctSecondsFormat;
 
 if(time.minutes == 0 && time.seconds == 0){
   clearInterval(questionTimeInterval);
@@ -251,13 +305,16 @@ while(counter<10){
 
 
 function showInstruction(){
+  if(candidateName.value){
   document.querySelector(".intro-box").classList.add("hide");
   box1.classList.add("hide");
   box2.classList.remove("hide");
   homeBox.classList.remove("hide");
 }
+}
 
 function startQuiz(){
+  if(candidateName.value){
   interval = setInterval(stopWatch,1000);
   document.querySelector(".intro-box").classList.add("hide");
   box1.classList.add("hide");
@@ -266,6 +323,7 @@ function startQuiz(){
   timeBar.classList.remove("hide");
   navBar.classList.remove("hide");
   getQuestion();
+}
 }
 
 function moveToQuestions() {
@@ -415,7 +473,47 @@ navBtn[i].style.border = "3px solid darkgreen";
 
 
 function showScore(){
+  timeTable.classList.add("hide");
+  highScoreTable.classList.add("hide");
+    resultTable.classList.remove("hide");
+    resultBar.classList.remove("hide");
 
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0');
+  var yyyy = today.getFullYear();
+
+  let candidateTime = new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds();
+
+
+  today = dd + '/' + mm + '/' + yyyy;
+if(localStorage.getItem("HIGHSCORE")){
+  var highScore = localStorage.getItem("HIGHSCORE");
+  if(score > highScore){
+    localStorage.setItem("HIGHSCORE",score);
+  }
+}
+else{
+  localStorage.setItem("HIGHSCORE",score);
+}
+if(localStorage.getItem("HIGHSCOREDATE")){
+
+  if(score > highScore){
+    localStorage.setItem("HIGHSCOREDATE",today);
+  }
+}
+else{
+  localStorage.setItem("HIGHSCOREDATE",today);
+}
+if(localStorage.getItem("HIGHSCORETIME")){
+
+  if(score > highScore){
+    localStorage.setItem("HIGHSCORETIME",candidateTime);
+  }
+}
+else{
+  localStorage.setItem("HIGHSCORETIME",candidateTime);
+}
   clearInterval(questionTimeInterval);
     clearInterval(interval);
     timeBar.classList.toggle("hide");
@@ -430,12 +528,19 @@ function showScore(){
   totalScore.innerHTML = score;
   totalWrong.innerHTML = wrong;
   percentage.innerHTML = percentageValue + "%";
+  name.innerHTML = candidateName.value;
+  submittedDate.innerHTML = today;
+  submittedTime.innerHTML = candidateTime;
 }
 
 function goBackToIntroPage(){
   time.seconds = 0;
-  time.minutes = 1;
-  timeBar.innerHTML = "1:00"
+  time.minutes = 10;
+  time.correctSecondsFormat = "0";
+  resultTime.seconds = 0;
+  resultTime.minutes = 0;
+  resultTime.correctSecondsFormat = "0";
+  timeBar.innerHTML = "10:00"
   for (var j =0; j< 10 ; j++){
     randomizedQuiz[j].time.seconds = 0;
     randomizedQuiz[j].time.minutes = 0;
@@ -459,4 +564,41 @@ function goBackToIntroPage(){
 
 function showCorrectQuestion(){
 
+}
+
+function goToTimeTable(){
+   resultTable.classList.add("hide");
+   timeTable.classList.remove("hide");
+   resultBar.classList.add("hide");
+   totalTime.innerHTML = resultTime.minutes + ":" + resultTime.correctSecondsFormat;
+qn1.innerHTML = randomizedQuiz[0].time.minutes + ":" + randomizedQuiz[0].time.seconds;
+qn2.innerHTML = randomizedQuiz[1].time.minutes + ":" + randomizedQuiz[1].time.seconds;
+qn3.innerHTML = randomizedQuiz[2].time.minutes + ":" + randomizedQuiz[2].time.seconds;
+qn4.innerHTML = randomizedQuiz[3].time.minutes + ":" + randomizedQuiz[3].time.seconds;
+qn5.innerHTML = randomizedQuiz[4].time.minutes + ":" + randomizedQuiz[4].time.seconds;
+qn6.innerHTML = randomizedQuiz[5].time.minutes + ":" + randomizedQuiz[5].time.seconds;
+qn7.innerHTML = randomizedQuiz[6].time.minutes + ":" + randomizedQuiz[6].time.seconds;
+qn8.innerHTML = randomizedQuiz[7].time.minutes + ":" + randomizedQuiz[7].time.seconds;
+qn9.innerHTML = randomizedQuiz[8].time.minutes + ":" + randomizedQuiz[8].time.seconds;
+qn10.innerHTML = randomizedQuiz[9].time.minutes + ":" + randomizedQuiz[9].time.seconds;
+}
+
+function goBack(){
+  resultTable.classList.remove("hide");
+  timeTable.classList.add("hide");
+  resultBar.classList.remove("hide");
+}
+
+function showHighScore(){
+   highScoreTable.classList.remove("hide");
+   timeTable.classList.add("hide");
+   highScoreData.innerHTML = localStorage.getItem("HIGHSCORE");
+   highScoreDate.innerHTML = localStorage.getItem("HIGHSCOREDATE");
+   highScoreTime.innerHTML = localStorage.getItem("HIGHSCORETIME");
+}
+
+function goBackAgain(){
+  highScoreTable.classList.add("hide");
+  resultTable.classList.remove("hide");
+  resultBar.classList.remove("hide");
 }
