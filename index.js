@@ -41,7 +41,8 @@ const qn8 = document.querySelector(".qn8");
 const qn9 = document.querySelector(".qn9");
 const qn10 = document.querySelector(".qn10");
 const totalTime = document.querySelector(".totTime");
-
+const previousButton = document.querySelector(".previousBtn");
+const nextButton = document.querySelector(".nextBtn");
 var resultTime = {
   seconds : 0,
   minutes : 0,
@@ -69,7 +70,7 @@ const quiz = [{
       "It is India's first COVID-19 drug launched, priced at Rs 103 per tablet.",
       "All the above are correct"
     ],
-    correctAnswer: "All the above are correct",
+    correctAnswer: 3,
        answered : false,
        chosenId : 0,
        correctId : 3,
@@ -86,7 +87,7 @@ const quiz = [{
       "More than 150",
       "More than 200"
     ],
-    correctAnswer: "More than 200",
+    correctAnswer: 3,
        answered : false,
        chosenId : 0,
        correctId : 3,
@@ -103,7 +104,7 @@ const quiz = [{
       "Remdesivir",
       "Hydroxychloroquine"
     ],
-    correctAnswer: "Plasma Therapy",
+    correctAnswer: 0,
        answered : false,
        chosenId : 0,
        correctId : 0,
@@ -120,7 +121,7 @@ const quiz = [{
       "T-Cell",
       "Endothelial Cells"
     ],
-    correctAnswer: "T-Cell",
+    correctAnswer: 2,
        answered : false,
        chosenId : 0,
        correctId : 2,
@@ -137,7 +138,7 @@ const quiz = [{
       "Both A and B",
       "Neither A nor B"
     ],
-    correctAnswer: "BNT162",
+    correctAnswer: 0,
        answered : false,
        chosenId : 0,
        correctId : 0,
@@ -154,7 +155,7 @@ const quiz = [{
       "Remdesivir",
       "Hydroxychloroquine"
     ],
-    correctAnswer: "Plasma Therapy",
+    correctAnswer: 0,
        answered : false,
        chosenId : 0,
        correctId : 0,
@@ -171,7 +172,7 @@ const quiz = [{
       "If the distance is less than 1 meter from the infected person.",
       "All the above are correct."
     ],
-    correctAnswer: "All the above are correct.",
+    correctAnswer: 3,
        answered : false,
        chosenId : 0,
        correctId : 3,
@@ -188,7 +189,7 @@ const quiz = [{
       "A very small proportion basically suffering from chronic illness may need admission in an Intensive Care Unit (ICU).",
       "All the above are correct"
     ],
-    correctAnswer: "All the above are correct",
+    correctAnswer: 3,
        answered : false,
        chosenId : 0,
        correctId : 3,
@@ -205,7 +206,7 @@ const quiz = [{
       " Older person and persons with pre-existing medical conditions are at high risk to develop serious illness.",
       " All the above are correct"
     ],
-    correctAnswer: " All the above are correct",
+    correctAnswer: 3,
        answered : false,
        chosenId : 0,
        correctId : 3,
@@ -222,7 +223,7 @@ const quiz = [{
       "Both A and B are correct",
       "Only A is correct."
     ],
-    correctAnswer: "Both A and B are correct",
+    correctAnswer: 2,
        answered : false,
        chosenId : 0,
        correctId : 2,
@@ -232,6 +233,7 @@ const quiz = [{
        }
   }
 ];
+
 
 
 
@@ -274,8 +276,7 @@ function stopWatch() {
   else{
     time.correctSecondsFormat = time.seconds;
   }
-
-  timeBar.innerHTML = time.minutes +':'+ time.correctSecondsFormat;
+  timeBar.innerHTML =  time.minutes +':'+ time.correctSecondsFormat;
 
 if(time.minutes == 0 && time.seconds == 0){
   clearInterval(questionTimeInterval);
@@ -294,6 +295,7 @@ if(time.minutes == 0 && time.seconds == 0){
 var randomizedQuiz = [];
 var availableQuestion = [];
 availableQuestion = quiz;
+
 let counter = 0;
 let k;
 while(counter<10){
@@ -340,7 +342,20 @@ function moveToQuestions() {
 function getQuestion() {
 
   if (i >= 0 && i <= 9) {
+    if(i == 9){
+      nextButton.style.display = "none";
+    }
+    else{
+      nextButton.style.display = "block";
+    }
 
+    if(i == 0){
+      previousButton.style.display = "none";
+    }
+    else{
+      previousButton.style.display = "block";
+
+    }
     if(randomizedQuiz[i].answered == false){
       for(var j = 0;j <4 ; j++){
         options[j].style.backgroundColor = "#cccccc";
@@ -368,18 +383,20 @@ function getQuestion() {
     // }
     for (var j = 0; j < 4; j++) {
 
-      options[j].innerHTML = randomizedQuiz[i].options[j];
+      options[j].innerHTML = "(" + "<span style='color:Blue;'>" + String.fromCharCode(65+j) + "</span>" + ")  " + randomizedQuiz[i].options[j];
       //  option = document.createElement("div");
       // option.innerHTML = quiz[i].options[j];
       // option.id = j;
       // option.className = "option";
       // optionBox.appendChild(option);
 
-      if (options[j].innerHTML == randomizedQuiz[i].correctAnswer) {
-        correctOption = options[j];
-      }
+      // if (options[j].innerHTML == randomizedQuiz[i].correctAnswer) {
+      //   correctOption = options[j];
+      // }
       options[j].setAttribute("onclick", "checkCorrectOrWrong(this)");
     }
+
+    correctOption = options[randomizedQuiz[i].correctAnswer];
     if(randomizedQuiz[i].answered == true){
         for (var j = 0; j < 4; j++) {
           options[j].style.backgroundColor = "#cccccc";
@@ -455,7 +472,7 @@ navBtn[i].style.border = "3px solid darkgreen";
      attempt = attempt + 1;
   randomizedQuiz[i].answered = true;
   let correctAnswer = randomizedQuiz[i].correctAnswer;
-  if (element.innerHTML == correctAnswer) {
+  if (element.id == correctAnswer) {
     correct = correct + 1;
     score = score + 1;
     emoji[i].innerHTML = "&#128515;"
@@ -554,7 +571,16 @@ function goBackToIntroPage(){
    correct = 0;
    i = 0;
    score = 0;
+   counter = 0;
+availableQuestion = randomizedQuiz;
+randomizedQuiz = [];
 
+  while(counter < 10){
+    k = Math.floor(Math.random() * availableQuestion.length);
+    randomizedQuiz.push(availableQuestion[k]);
+    availableQuestion.splice(k,1);
+    counter = counter + 1;
+  }
 
   box4.classList.add("hide");
   box1.classList.toggle("hide");

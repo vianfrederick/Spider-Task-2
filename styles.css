@@ -286,9 +286,9 @@ padding: 15px;
   margin-right: 157px;
 }
 
-@media only screen and (min-width: 1345px) {
+@media only screen and (min-width: 1423px) {
   #next{
-  margin-left: 300px;
+  margin-left: 54%;
   display: inline;
   }
 
