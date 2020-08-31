@@ -57,7 +57,7 @@ body{
   padding: 30px;
   border-radius: 10px;
 }
-*/
+
  .hide{
   display: none;
 }
@@ -93,7 +93,9 @@ body{
   font-family: "Montserrat",sans-serif;
     font-size: 16px;
     cursor: pointer;
-    display: inline-block;
+    margin-top: 20px;
+
+    /* display: inline-block; */
 }
 
 .home-box .btn{
@@ -139,10 +141,7 @@ border-radius: 15px;
    text-transform: capitalize;
 }
 
-.quiz-box .btn{
-  margin: 15px 0;
 
-}
 
 .quiz-box .answer-indicator{
   border-top: 1px solid #cccccc;
@@ -208,4 +207,22 @@ margin-left: 70px;
 .emoji{
   font-size: 32px;
   background-color: white;
+}
+
+.nextBtn{
+  margin-left: 0;
+
+}
+
+.initial{
+   margin-left: 330px;
+   margin-top : 100px;
+}
+
+@media only screen and (width < 759px){
+  .initial{
+    margin-left: 0;
+    display: block;
+    margin-top: 30px;
+  }
 }
