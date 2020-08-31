@@ -89,17 +89,21 @@ const quiz = [{
        correctId : 0
   },
   {
-    question: " Name a clinical trial in which blood is transfused from recovered COVID-19 patients to a coronavirus patient who is in critical condition?",
+    question: "Which of the following diseases are related to coronavirus?",
     options: [
-      "Plasma Therapy",
-      "Solidarity",
-      "Remdesivir",
-      "Hydroxychloroquine"
+      "MERS",
+      "SARS",
+      "Both A and B",
+      "Neither A nor B"
     ],
-    correctAnswer: 0,
+    correctAnswer: 2,
        answered : false,
        chosenId : 0,
-       correctId : 0
+       correctId : 2,
+       time : {
+         seconds : 0,
+         minutes : 0
+       }
   },
   {
     question: "How does Coronavirus transmit?",
@@ -203,26 +207,16 @@ function getQuestion() {
       }
     }
 
-       // console.log(quiz[i].chosenId);
-       // console.log(quiz[i].correctId);
-       // console.log(typeof(quiz[i].chosenId));
-       // console.log(typeof(quiz[i].correctId));
+
 
     questionNumber.innerHTML = "Question " + String(i + 1);
     questionText.innerHTML = quiz[i].question;
 
 
-    // for (var j = 0; j < 4; j++) {
-    //   options[j].innerHTML = quiz[i].options[j];
-    // }
+
     for (var j = 0; j < 4; j++) {
 
       options[j].innerHTML = "(" + "<span style='color:Blue;'>" + String.fromCharCode(65+j) + "</span>" + ")  " + quiz[i].options[j];
-      //  option = document.createElement("div");
-      // option.innerHTML = quiz[i].options[j];
-      // option.id = j;
-      // option.className = "option";
-      // optionBox.appendChild(option);
 
 
       options[j].setAttribute("onclick", "checkCorrectOrWrong(this)");
@@ -248,20 +242,13 @@ function getQuestion() {
 
 function nextQuestion() {
 
-// option1 = document.querySelectorAll(".option");
+
   if (i >= 0 && i <= 9) {
         if(i!=9){
-   // // for (var j = 0; j < 4; j++) {
-   // //   option1[j].remove();
-   //
-   //
-   //   }
+
     ++i;
 
-    // if (i == 10) {
-    //   quizBox.classList.add("hide");
-    //   resultBox.classList.remove("hide");
-    // }
+
 
     getQuestion();
   }
@@ -271,16 +258,13 @@ function nextQuestion() {
 }
 
 function previousQuestion() {
-// option1 = document.querySelectorAll(".option");
+
   if (i >= 0 && i <= 9) {
 
     if (i != 0) {
 
 
-// for (var j = 0; j < 4; j++) {
-//   option1[j].remove();
-//
-//   }
+
       --i;
 
 
